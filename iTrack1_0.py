@@ -149,7 +149,6 @@ def track(cap, right_x=[], left_x=[]): #this is where the code to actually track
                     
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         eyes = eye_cascade.detectMultiScale(gray, 1.3, 5)
-        cv2.rectangle(img,(0,0), (width,295),(255,255,255), -1,8,0) #rectangle text box
         cv2.line(img,(0,height/2),(width,height/2),(0,0,255),1,8,0) #vertical
         cv2.line(img,(width/2,0),(width/2,height),(0,0,255),1,8,0) #horizontal
         cv2.line(img,(0,295),(width,295),(255,0,0),1,8,0) #selector line

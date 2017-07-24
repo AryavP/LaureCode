@@ -9,16 +9,19 @@ class Application(Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        self.button1 = Button(self, text="fuck")
+        self.button1 = Button(self, text="buttons")
         self.button1.grid()
 
         self.button2 = Button(self)
         self.button2.grid()
-        self.button2.configure(text = "you")
+        self.button2.configure(text = "buttonssss")
 
-root = Tk()
-root.title("object")
-root.geometry("1000x500")
-app = Application(root)
 
-root.mainloop()
+if __name__ == "__main__":
+    
+    root = Tk()
+    root.title("object")
+    root.geometry("1000x500")
+    app = Application(root)
+
+    root.mainloop()
