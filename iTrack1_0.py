@@ -26,10 +26,14 @@ class BST:
     def insert2(self, val, n):
         if val == n.data: return
         elif val<n.data:
-            if n.left==None: n.left = Node(val)
+            if n.left==None:
+                n.left = Node(val)
+                n.left.parent = n
             else: self.insert2(val, n.left)
         else:
-            if n.right==None: n.right = Node(val)
+            if n.right==None:
+                n.right = Node(val)
+                n.right.parent = n
             else: self.insert2(val, n.right)
 
     def traverse(self, val):
@@ -111,7 +115,27 @@ def state(n, bst, direc, out=[]): #builds a statement using the track function
     left = []
     frame = cv2.VideoCapture(0)
 
-    track(frame, right, left)
+    while(True):
+        choice = track(frame, right, left)
+        if choice is "right":
+            print "right"
+            if n.right!=None: n=n.right
+        elif choice is "left":
+            print "left"
+            if n.left!= None: n=n.left
+        elif choice is "selection":
+            print "selection"
+            if n.data is "~" and len(out)>=1: del out[-1]
+            elif n.data is ".":
+                exp = ''.join(out)
+                os.system("say '" + exp +"'")
+                del out[:]
+            else: out.append(n.data)
+            n=bst
+        elif choice is "down":
+            print "down"
+            if n.parent!=None: n=n.parent
+        else: print "middle" 
     
 
 def track(cap, right_x=[], left_x=[]): #this is where the code to actually track is
@@ -146,10 +170,9 @@ def track(cap, right_x=[], left_x=[]): #this is where the code to actually track
             height_cap = 295
             if (len(right_x) >= max_length - 15 & len(left_x) >= max_length-15):
                 reset(right_x, left_x)
-                if(height<height_cap):
-                    return "selection"
-                else:
-                    return "middle"
+                if(eyes_y<height_cap): return "selection"
+                elif(eyes_y>height/2): return "down"
+                else: return "middle"
             elif len(right_x) > max_length:
                 reset(right_x, left_x)
                 return "right"
